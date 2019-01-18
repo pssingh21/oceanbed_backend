@@ -12,7 +12,9 @@ var config = require('./config/config');	//contains all configuraion info
 var path = require('path');
 
 var authRoute = require('./routes/auth')(config);
+var dashboard = require('./routes/dashboard')();
 require('./db')(config);
+var authenticate = require('./middlewares/authenticate');
 //USER ROUTE LEFT
 //DASHBOARD LEFT
 app.use(bodyParser.urlencoded({
@@ -23,6 +25,7 @@ app.use(expressValidator());
 
 
 app.use('/auth', authRoute);
+app.use('/dashboard', authenticate, dashboard);
 
 app.use(function(req, res, next) {
     console.log('I am last application level middleware');

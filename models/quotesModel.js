@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
+var userModel = require('./userModel');
 
 var userSchema = new Schema({
 	AllQuotes:[{
