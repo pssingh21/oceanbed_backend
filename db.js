@@ -6,6 +6,6 @@ module.exports = function(config){
 		console.log('connected to database');
 	});
 	mongoose.connection.on('err', function(err){
-		console.log('error connecting to ddatabase');
+		console.log('error connecting to database');
 	})
 }
