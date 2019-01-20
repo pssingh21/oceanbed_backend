@@ -50,6 +50,6 @@ app.listen(config.port, function(err, done) {
         console.log("Server failed");
     } else {
         console.log("Server listening at port ", config.port);
-        console.log("press CTRL + C to exit the server");
+        console.log("Press CTRL + C to exit the server");
     }
 });

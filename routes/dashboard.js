@@ -45,8 +45,21 @@ module.exports = function(config){
 		req.assert('newQuote','Quote cannot be blank').notEmpty();
 		var errrors = req.validationErrors();
 		var thisQuote = new QuotesModel();
-
-	})
+		console.log("req.newQuote is ",req.body.newQuote);
+		thisQuote.AllQuotes.push(req.body.newQuote);
+		thisQuote.likes = 0;
+		thisQuote.report = false;
+		var decoded = jwt.decode(req.headers.authorization,{
+			complete:true
+		});
+		thisQuote.username = decoded.payload.id; 
+		thisQuote.save(function(err,quote){
+			if(err){
+				return next(err);
+			}
+			res.json(quote);
+		});
+	});
 
 	return router;
 }

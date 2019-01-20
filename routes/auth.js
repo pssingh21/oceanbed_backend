@@ -70,7 +70,6 @@ module.exports = function(config){
 		mappedUser.password = passwordHash.generate(req.body.password);
 		mappedUser.save(function(err, user) {
             if (err) {
-            	console.log('Whats wrong now?');
                 return next(err);
             }
             res.json(user);

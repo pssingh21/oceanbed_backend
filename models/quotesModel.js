@@ -3,9 +3,9 @@ var Schema = mongoose.Schema;
 var userModel = require('./userModel');
 
 var quotesSchema = new Schema({
-	AllQuotes:[{
+	AllQuotes:{
 		type:String,
-	}],
+	},
 	likes:Number,
 	report:Boolean,
 	username:{
