@@ -66,12 +66,10 @@ module.exports = function(config){
             complete: true
         });
         var thisQuoteId = req.params.id;
-        console.log('decoded is ',decoded);
         QuotesModel.findById(thisQuoteId,function(err,quotes){
         	if(err){
         		return next(err);
         	}
-        	console.log('quotes.username',quotes.username);
         	if(decoded.payload.id==quotes.username){
         		QuotesModel.findByIdAndRemove(thisQuoteId,function(err,done){
         			if(err){
