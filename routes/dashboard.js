@@ -45,8 +45,7 @@ module.exports = function(config){
 		req.assert('newQuote','Quote cannot be blank').notEmpty();
 		var errrors = req.validationErrors();
 		var thisQuote = new QuotesModel();
-		console.log("req.newQuote is ",req.body.newQuote);
-		thisQuote.AllQuotes.push(req.body.newQuote);
+		thisQuote.AllQuotes = req.body.newQuote;
 		thisQuote.likes = 0;
 		thisQuote.report = false;
 		var decoded = jwt.decode(req.headers.authorization,{
@@ -61,5 +60,36 @@ module.exports = function(config){
 		});
 	});
 
+	//delete quote
+	router.delete('/deleteQuote/:id',function(req,res,next){
+		var decoded = jwt.decode(req.headers.authorization, {
+            complete: true
+        });
+        var thisQuoteId = req.params.id;
+        console.log('decoded is ',decoded);
+        QuotesModel.findById(thisQuoteId,function(err,quotes){
+        	if(err){
+        		return next(err);
+        	}
+        	console.log('quotes.username',quotes.username);
+        	if(decoded.payload.id==quotes.username){
+        		QuotesModel.findByIdAndRemove(thisQuoteId,function(err,done){
+        			if(err){
+        				return next(err);
+        			}
+        			res.json({
+        				status:200,
+        				message:"Post deleted"
+        			});
+        		});
+        	}else{
+        		res.json({
+        			status:403,
+        			message:"Request denied"
+        		});
+        	}
+        });
+        
+	});	
 	return router;
 }

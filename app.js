@@ -16,7 +16,6 @@ var dashboard = require('./routes/dashboard')();
 require('./db')(config);
 var authenticate = require('./middlewares/authenticate');
 //USER ROUTE LEFT
-//DASHBOARD LEFT
 app.use(bodyParser.urlencoded({
     extended: true
 }));
