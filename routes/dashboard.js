@@ -89,5 +89,17 @@ module.exports = function(config){
         });
         
 	});	
+
+	//add likes
+	router.get('/like/:id',function(req,res,next){
+		var thisQuoteId = req.params.id;
+		var newLikes = req.query.likeNumber;
+		QuotesModel.findByIdAndUpdate(thisQuoteId,{ $set: { likes: newLikes }}, {new: true},function(err,quotes){
+			if(err){
+				return next(err);
+			}
+			res.json(quotes);
+		});
+	});
 	return router;
 }
