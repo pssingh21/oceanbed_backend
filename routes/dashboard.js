@@ -13,7 +13,7 @@ var oid = mongodb.ObjectId;
 var QuotesModel = require('./../models/quotesModel');
 var jwt = require('jsonwebtoken');
 
-module.exports = function(config){
+module.exports = function(){
 
 	//fetch all quotes
 	router.get('/',function(req,res,next){
