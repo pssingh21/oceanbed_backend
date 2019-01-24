@@ -24,5 +24,15 @@ module.exports=function(){
 		});
 	});
 
+	//unreport post
+	router.get('/unreport/:id',function(req,res,next){
+		QuotesModel.findByIdAndUpdate(req.params.id,{$set: { report: false }},{new: true},function(err,quotes){
+			if(err){
+				return next(err);
+			}
+			res.json(quotes);
+		})
+	});
+
 	return router;
 }
