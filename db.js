@@ -4,7 +4,7 @@ module.exports = function(config){
 		useCreateIndex: true,
   		useNewUrlParser: true
 });
-
+	mongoose.set('useFindAndModify', false);
 	mongoose.connection.once('open', function(){
 		console.log('Connected to database');
 	});

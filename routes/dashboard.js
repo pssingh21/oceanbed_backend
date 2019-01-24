@@ -101,5 +101,16 @@ module.exports = function(config){
 			res.json(quotes);
 		});
 	});
+
+	//report post
+	router.get('/report/:id',function(req,res,next){
+		var thisQuoteId = req.params.id;
+		QuotesModel.findByIdAndUpdate(thisQuoteId,{$set: { report: true }},{new: true},function(err,quotes){
+			if(err){
+				return next(err);
+			}
+			res.json(quotes);
+		});
+	});
 	return router;
 }
