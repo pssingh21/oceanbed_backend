@@ -19,6 +19,22 @@ function createToken(user,config){
 
 module.exports = function(config){
 
+	router.post('/register',function(req,res,next){
+		req.assert('username','Username is required').notEmpty();
+		req.assert('password','Password is required').notEmpty();
+		req.assert('email','Email is required').notEmpty();
+		req.assert('colour','Color is required').notEmpty();
+		var errors = req.validationErrors();
+		var newUser = new UserModel();
+		var mappedUser = mapUser(newUser,req.body);
+		mappedUser.password = passwordHash.generate(req.body.password);
+		mappedUser.save(function(err, user) {
+            if (err) {
+                return next(err);
+            }
+            res.json(user);
+        });
+	});
 
 	router.post('/login',function(req,res,next){
 		req.assert('username','Username is required').notEmpty();
@@ -59,21 +75,5 @@ module.exports = function(config){
 		});
 	});
 
-	router.post('/register',function(req,res,next){
-		req.assert('username','Username is required').notEmpty();
-		req.assert('password','Password is required').notEmpty();
-		req.assert('email','Email is required').notEmpty();
-		req.assert('colour','Color is required').notEmpty();
-		var errors = req.validationErrors();
-		var newUser = new UserModel();
-		var mappedUser = mapUser(newUser,req.body);
-		mappedUser.password = passwordHash.generate(req.body.password);
-		mappedUser.save(function(err, user) {
-            if (err) {
-                return next(err);
-            }
-            res.json(user);
-        });
-	});
 	return router;
 } 
