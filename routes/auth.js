@@ -6,8 +6,8 @@ var jwt = require('jsonwebtoken');
 
 var UserModel = require('./../models/userModel');
 
-var mongodb = require('mongodb');
-var mongoClient = mongodb.MongoClient;
+//var mongodb = require('mongodb');
+//var mongoClient = mongodb.MongoClient;
 
 function createToken(user,config){
 	var token = jwt.sign({

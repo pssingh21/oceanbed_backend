@@ -4,32 +4,30 @@
 var express = require('express');
 var app = express();	//this app variable is entire express framework
 
-var morgan = require('morgan');
 var bodyParser = require('body-parser');	//middleware to parse data passed from req.body >> x-www-form-urlencoded and json data
 var expressValidator = require('express-validator');
+
 var config = require('./config/config');	//contains all configuraion info
-
-var path = require('path');
-
 var authRoute = require('./routes/auth')(config);
 var dashboard = require('./routes/dashboard')();
 var reportedRoute = require('./routes/reportedPosts')();
 require('./db')(config);
+
 var authenticate = require('./middlewares/authenticate');
 var authorize = require('./middlewares/authorize');
-//USER ROUTE LEFT
+
 app.use(bodyParser.urlencoded({
     extended: true
 }));
 app.use(bodyParser.json());
 app.use(expressValidator());
 
-
 app.use('/auth', authRoute);
 app.use('/dashboard', authenticate, dashboard);
 app.use('/reported',authenticate,authorize,reportedRoute);
+
 app.use(function(req, res, next) {
-    console.log('I am last application level middleware');
+    console.log('Last application level middleware reached.');
     next({
         status: 404,
         message: 'Not Found'

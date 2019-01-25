@@ -7,9 +7,9 @@
 
 var express = require('express');
 var router = express.Router();
-var mongodb = require('mongodb');
-var mongoClient = mongodb.MongoClient;
-var oid = mongodb.ObjectId;
+//var mongodb = require('mongodb');
+//var mongoClient = mongodb.MongoClient;
+//var oid = mongodb.ObjectId;
 var QuotesModel = require('./../models/quotesModel');
 var jwt = require('jsonwebtoken');
 
