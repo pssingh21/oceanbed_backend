@@ -15,6 +15,16 @@ var jwt = require('jsonwebtoken');
 
 module.exports = function(){
 
+	/*
+		Fetch all quotes; from all users
+		GET request
+		url: localhost:4040/dashboard
+		Headers:
+			-Content-Type: application/x-www-form-urlencoded
+			-authorization: {{user token here}}
+		Returns all quotes in JSON format
+	*/
+
 	//fetch all quotes
 	router.get('/',function(req,res,next){
 		QuotesModel.find({},function(err,quotes){
@@ -24,6 +34,17 @@ module.exports = function(){
 			res.json(quotes);
 		});
 	});
+
+
+	/*
+		Fetch quotes posted by logged in user
+		GET request
+		url: localhost:4040/dashboard/myProfile
+		Headers:
+			-Content-Type: application/x-www-form-urlencoded
+			-authorization: {{user token here}}
+		Returns quotes posted by this user in JSON format
+	*/
 
 	//my profile quotes
 	router.get('/myProfile',function(req,res,next){
@@ -39,6 +60,19 @@ module.exports = function(){
 			res.json(quotes);
 		});
 	});
+
+
+	/*
+		Post new quote
+		POST request
+		url: localhost:4040/dashboard/addQuote
+		Headers:
+			-Content-Type: application/x-www-form-urlencoded
+			-authorization: {{user token here}}
+		Req.body: [x-www-form-urlencoded]
+			-newQuote: {{Quote to post}} --> String
+		Returns new added quote as JSON object
+	*/
 
 	//add new quote
 	router.post('/addQuote',function(req,res,next){
@@ -59,6 +93,18 @@ module.exports = function(){
 			res.json(quote);
 		});
 	});
+
+
+	/*
+		Delete quote added by logged in user
+		DELETE request
+		url: localhost:4040/dashboard/deleteQuote/{{object id of post}}
+			eg. --> localhost:4040/dashboard/deleteQuote/5c4dc8f8ff3b9a09e8cb0111
+		Headers:
+			-Content-Type: application/x-www-form-urlencoded
+			-authorization: {{user token here}}
+		Returns JSON object of deleted post or denies request if user is not authorized
+	*/
 
 	//delete quote
 	router.delete('/deleteQuote/:id',function(req,res,next){
@@ -90,10 +136,24 @@ module.exports = function(){
         
 	});	
 
+
+	/*
+		Add number of specified likes
+		PUT request
+		url: localhost:4040/dashboard/like/{{object id of post}}
+			eg. --> localhost:4040/dashboard/like/5c4dc8f8ff3b9a09e8cb0111?likeNumber=49
+		Headers:
+			-Content-Type: application/x-www-form-urlencoded
+			-authorization: {{user token here}}
+		Req.body:
+			-likeNumber: {{number of new likes}} --> Number
+		Returns updated JSON object with desired number of likes
+	*/
+
 	//add likes
-	router.get('/like/:id',function(req,res,next){
+	router.put('/like/:id',function(req,res,next){
 		var thisQuoteId = req.params.id;
-		var newLikes = req.query.likeNumber;
+		var newLikes = req.body.likeNumber;
 		QuotesModel.findByIdAndUpdate(thisQuoteId,{ $set: { likes: newLikes }}, {new: true},function(err,quotes){
 			if(err){
 				return next(err);
@@ -102,8 +162,20 @@ module.exports = function(){
 		});
 	});
 
+
+	/*
+		Set report to true
+		PUT request
+		url: localhost:4040/dashboard/report/{{object id of post}}
+			eg. --> localhost:4040/dashboard/report/5c4dc8f8ff3b9a09e8cb0111
+		Headers:
+			-Content-Type: application/x-www-form-urlencoded
+			-authorization: {{user token here}}
+		Returns updated JSON object with report set to true
+	*/
+
 	//report post
-	router.get('/report/:id',function(req,res,next){
+	router.put('/report/:id',function(req,res,next){
 		var thisQuoteId = req.params.id;
 		QuotesModel.findByIdAndUpdate(thisQuoteId,{$set: { report: true }},{new: true},function(err,quotes){
 			if(err){
