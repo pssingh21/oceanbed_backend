@@ -13,7 +13,7 @@ function createToken(user,config){
 	var token = jwt.sign({
 		id:user._id,
 		username: user.username
-	}, config.jwtSecret);
+	}, config.jwtSecret,{ expiresIn: '6h' });
 	return token;
 }
 
