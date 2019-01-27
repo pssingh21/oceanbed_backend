@@ -19,6 +19,22 @@ function createToken(user,config){
 
 module.exports = function(config){
 
+	/*
+		Register  a user
+		POST request
+		url: localhost:4040/auth/register
+		Headers:
+			-Content-Type: application/x-www-form-urlencoded
+		Req.body: [x-www-form-urlencoded]
+			-username --> string
+			-password --> string
+			-email --> string
+			-colour --> string
+			-//role//- (optional) :1 ->> number
+		Username,email,colour must all be unique in the database and cannot be empty
+		Returns JSON data of registered user
+	*/
+
 	router.post('/register',function(req,res,next){
 		req.assert('username','Username is required').notEmpty();
 		req.assert('password','Password is required').notEmpty();
@@ -35,6 +51,20 @@ module.exports = function(config){
             res.json(user);
         });
 	});
+
+	/*
+		Login user
+		POST request
+		url: localhost:4040/auth/login
+		Headers:
+			-Content-Type: application/x-www-form-urlencoded
+		Req.body: [x-www-form-urlencoded]
+			-username
+			-password
+		Username and password should correspond to registered user in database
+		Username and password cannot be empty
+		Returns JSON data of user object and user token
+	*/
 
 	router.post('/login',function(req,res,next){
 		req.assert('username','Username is required').notEmpty();
