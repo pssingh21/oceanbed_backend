@@ -22,6 +22,11 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json());
 app.use(expressValidator());
 
+//views
+app.use('/',function(req,res,next){
+    res.send('API up and running in server! Herzliche Glückwünsch!');
+});
+
 app.use('/auth', authRoute);
 app.use('/dashboard', authenticate, dashboard);
 app.use('/reported',authenticate,authorize,reportedRoute);
