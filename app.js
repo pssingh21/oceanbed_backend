@@ -44,7 +44,7 @@ app.use(function(err, req, res, next) {
     });
 });
 
-app.listen(config.port, function(err, done) {
+app.listen(process.env.PORT || config.port, function(err, done) {
     if (err) {
         console.log("Server failed");
     } else {
