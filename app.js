@@ -42,7 +42,7 @@ app.use(function(req, res, next) {
 app.use(function(err, req, res, next) {
     console.log("Err is ", err);
     console.log("I am at error handling middleware");
-    res.json({
+    res.status(400).json({
         status: err.status || 400,
         msg: err.message || "Something went wrong"
     });
