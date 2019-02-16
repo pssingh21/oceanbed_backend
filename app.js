@@ -4,6 +4,10 @@
 var express = require('express');
 var app = express();	//this app variable is entire express framework
 
+//CORS config
+var cors = require('cors')
+app.use(cors());
+
 var bodyParser = require('body-parser');	//middleware to parse data passed from req.body >> x-www-form-urlencoded and json data
 var expressValidator = require('express-validator');
 
