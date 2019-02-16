@@ -15,8 +15,8 @@ var userSchema = new Schema({
 	},
 	colour:{
 		type:String,
-		unique:true,
-		required:true
+		unique:false,
+		required:false
 	},
 	role:Number
 },{
