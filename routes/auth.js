@@ -39,7 +39,7 @@ module.exports = function(config){
 		req.assert('username','Username is required').notEmpty();
 		req.assert('password','Password is required').notEmpty();
 		req.assert('email','Email is required').notEmpty();
-		req.assert('colour','Color is required').notEmpty();
+		// req.assert('colour','Color is required').notEmpty();
 		var errors = req.validationErrors();
 		var newUser = new UserModel();
 		var mappedUser = mapUser(newUser,req.body);
