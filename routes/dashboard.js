@@ -25,16 +25,6 @@ module.exports = function(){
 		Returns all quotes in JSON format
 	*/
 
-	//fetch all quotes
-	// router.get('/',function(req,res,next){
-	// 	QuotesModel.find({},function(err,quotes){
-	// 		if(err){
-	// 			return next(err);
-	// 		}
-	// 		res.json(quotes);
-	// 	});
-	// });
-
 	router.get('/',function(req,res,next){
 		QuotesModel.find({}).sort({createdAt:-1}).exec(function(err,quotes){
 			if(err){
