@@ -36,7 +36,7 @@ module.exports = function(){
 	// });
 
 	router.get('/',function(req,res,next){
-		QuotesModel.find({}).sort({date:-1}).exec(function(err,quotes){
+		QuotesModel.find({}).sort({likes:-1}).exec(function(err,quotes){
 			if(err){
 				return next(err);
 			}
