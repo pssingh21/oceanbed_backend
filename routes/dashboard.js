@@ -52,7 +52,7 @@ module.exports = function(){
 		});
 		QuotesModel.find({
 			username:decoded.payload.id
-		},function(err,quotes){
+		}).sort({createdAt:-1}).exec(function(err,quotes){
 			if(err){
 				return next(err);
 			}
