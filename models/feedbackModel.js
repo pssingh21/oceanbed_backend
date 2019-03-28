@@ -3,7 +3,7 @@ var Schema = mongoose.Schema;
 var userModel = require('./userModel');
 
 var feedbackSchema = new Schema({
-	msg:String
+	msg:String,
 	username:{
 		type:Schema.Types.ObjectId,
 		ref:'userModel'
