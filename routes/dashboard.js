@@ -201,6 +201,18 @@ module.exports = function() {
         });
     });
 
+    /*
+		Send Feedback
+		POST request
+		url: localhost:4040/dashboard/feedback
+		Headers:
+    		-Content-Type: application/x-www-form-urlencoded
+    		-authorization: {{user token here}}
+    	Req.body: [x-www-form-urlencoded]
+    		-msg: {{Feedback to send}} --> String
+    	Returns sent feedback as JSON object
+    */
+
     router.post('/feedback', function(req, res, next) {
         req.assert('msg', 'Feedback cannot be blank').notEmpty();
         var thisFeedback = new FeedbackModel();
