@@ -12,5 +12,5 @@ var feedbackSchema = new Schema({
 	timestamps:true
 });
 
-var feedbackModel = mongoose.model('quotes',quotesSchema);
+var feedbackModel = mongoose.model('feedback',feedbackSchema);
 module.exports = feedbackModel;
