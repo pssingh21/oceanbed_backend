@@ -11,6 +11,7 @@ var router = express.Router();
 //var mongoClient = mongodb.MongoClient;
 //var oid = mongodb.ObjectId;
 var QuotesModel = require('./../models/quotesModel');
+var FeedbackModel = require('./../models/feedbackModel');
 var jwt = require('jsonwebtoken');
 
 module.exports = function() {
@@ -202,7 +203,7 @@ module.exports = function() {
 
     router.post('/feedback', function(req, res, next) {
         req.assert('msg', 'Feedback cannot be blank').notEmpty();
-        var thisFeedback = new QuotesModel();
+        var thisFeedback = new FeedbackModel();
         thisFeedback.msg = req.body.msg;
         var decoded = jwt.decode(req.headers.authorization, {
             complete: true
