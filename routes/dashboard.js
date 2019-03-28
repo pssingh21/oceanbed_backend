@@ -208,7 +208,7 @@ module.exports = function() {
             complete: true
         });
         thisFeedback.username = decoded.payload.id;
-        thisQuote.save(function(err, feedback) {
+        thisFeedback.save(function(err, feedback) {
             if (err) {
                 return next(err);
             }
